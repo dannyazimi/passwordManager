@@ -1,16 +1,24 @@
 from tkinter import *
-
+from tkinter import messagebox
 
 def save():
     entered_website = website_text.get()
     entered_email= email_text.get()
     entered_password = password_text.get()
-    with open("data.txt", mode='a') as data:
-        data.write(f"{entered_website} | {entered_email} | {entered_password}\n")
-        website_text.delete(0,END)
-        email_text.delete(0,END)
-        email_text.insert(0,"@gmail.com")
-        password_text.delete(0,END)
+
+    if len(entered_website) == 0 or len(entered_email) == 0 or len(entered_password) == 0:
+        messagebox.showinfo(title="Error", message="Please make sure all the entries are filled.")
+    else:
+        is_ok = messagebox.askokcancel(title = entered_password,message=f"These are the details entered:\n"
+                                                                        f"Email: {entered_email}\nPassword: "
+                                                                        f"{entered_password}.\n Ready to save?")
+        if is_ok:
+            with open("data.txt", mode='a') as data:
+                data.write(f"{entered_website} | {entered_email} | {entered_password}\n")
+                website_text.delete(0,END)
+                email_text.delete(0,END)
+                email_text.insert(0,"@gmail.com")
+                password_text.delete(0,END)
 
 window = Tk()
 window.title("Password Manager")
