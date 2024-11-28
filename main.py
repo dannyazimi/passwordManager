@@ -2,25 +2,41 @@ from tkinter import *
 from tkinter import messagebox
 import random
 import pyperclip
+import json
 
 def save():
     entered_website = website_text.get()
     entered_email= email_text.get()
     entered_password = password_text.get()
+    new_data = {
+        entered_website: {
+            "email": entered_email,
+            "password": entered_password,
+        }
+    }
 
-    if len(entered_website) == 0 or len(entered_email) == 0 or len(entered_password) == 0:
+    if len(entered_website) == 0 or len(entered_password) == 0:
         messagebox.showinfo(title="Error", message="Please make sure all the entries are filled.")
     else:
-        is_ok = messagebox.askokcancel(title = entered_password,message=f"These are the details entered:\n"
-                                                                        f"Email: {entered_email}\nPassword: "
-                                                                        f"{entered_password}.\n Ready to save?")
-        if is_ok:
-            with open("data.txt", mode='a') as data:
-                data.write(f"{entered_website} | {entered_email} | {entered_password}\n")
-                website_text.delete(0,END)
-                email_text.delete(0,END)
-                email_text.insert(0,"@gmail.com")
-                password_text.delete(0,END)
+        try:
+            with open("data.json", mode='r') as data_file:
+                #Read the old data
+                data = json.load(data_file)
+        except FileNotFoundError:
+            with open("data.json",mode="w") as data_file:
+                json.dump(new_data,data_file, indent = 4)
+        else:
+            #Update the old data with the new data
+            data.update(new_data)
+
+            with open("data.json", mode = "w") as data_file:
+                #Saving the updated data back to file
+                json.dump(data,data_file, indent=4)
+        finally:
+            website_text.delete(0,END)
+            email_text.delete(0,END)
+            email_text.insert(0,"@gmail.com")
+            password_text.delete(0,END)
 
 def generate_password():
     letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
