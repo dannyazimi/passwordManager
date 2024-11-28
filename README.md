@@ -23,8 +23,7 @@ A simple password manager with a graphical user interface built using Python's '
 ## File Structure
 
 * main.py - main script to run the password manager
-* data.txt - stores saved credentials in the format:
-  Website | Email/Username | Password
+* data.json - to save the username and passwords
 * Logo.png - the logo for the application
 
 ## Planned features
