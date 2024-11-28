@@ -19,7 +19,7 @@ A simple password manager with a graphical user interface built using Python's '
 2. Navigate to the project directory,
 3. Install Python if you don't have it already,
 4. Ensure the tkinter library is available. It is included by default in python's standard library.
-
+5. Ensure Messagebox from tkinter, pyperclip and random libraries are installed
 ## File Structure
 
 * main.py - main script to run the password manager
