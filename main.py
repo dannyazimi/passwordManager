@@ -58,17 +58,23 @@ def generate_password():
     pyperclip.copy(password)
 
 def find_password():
-    search_var = website_text.get().title()
+    website = website_text.get().title()
+    try:
+        with open("data.json", mode="r") as data_file:
+            data = json.load(data_file)
+    except FileNotFoundError:
+        messagebox.showinfo("Error", message="No Data File Found.")
+    else:
+        if website in data:
+            search_result = data[website]
+            searched_email = search_result["email"]
+            searched_password = search_result["password"]
+            messagebox.showinfo(website, f"Username: {searched_email}\n Password: {searched_password}\n\n"
+                                                f" Password copied to clipboard")
+            pyperclip.copy(searched_password)
+        else:
+            messagebox.showinfo(title="Error", message = f"No Details for {website} Found.")
 
-    with open("data.json", mode="r") as data_file:
-        data = json.load(data_file)
-        search_result = data[search_var]
-        print(search_result)
-        searched_email = search_result["email"]
-        searched_password = search_result["password"]
-        messagebox.showinfo(search_var, f"Username: {searched_email}\n Password: {searched_password}\n\n"
-                                        f" Password copied to clipboard")
-        pyperclip.copy(searched_password)
 
 window = Tk()
 window.title("Password Manager")
@@ -85,7 +91,7 @@ website_text.grid(row=1,column=1, sticky=EW)
 website_text.focus()
 website_label = Label(text="Website: ")
 website_label.grid(row=1, column=0, sticky=EW)
-search_button = Button(text="Search",command=find_password,width=20)
+search_button = Button(text="Search Website",command=find_password,width=20)
 search_button.grid(row=1, column=2, sticky=EW)
 
 #email text box and label
@@ -98,7 +104,7 @@ email_label.grid(row=2,column=0, sticky=EW)
 #generate button and password text entry
 password_text = Entry(width=21)
 password_text.grid(row=3,column=1, sticky=EW)
-generate_button = Button(text = "Generate",width= 9,command=generate_password)
+generate_button = Button(text = "Generate Password",width= 9,command=generate_password)
 generate_button.grid(column = 2, row=3, sticky=EW)
 password_label = Label(text = "Password: ")
 password_label.grid(row=3, column = 0, sticky=EW)
