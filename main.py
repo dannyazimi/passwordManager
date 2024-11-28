@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 import random
+import pyperclip
 
 def save():
     entered_website = website_text.get()
@@ -38,6 +39,7 @@ def generate_password():
 
     password_text.delete(0,END)
     password_text.insert(0,password)
+    pyperclip.copy(password)
 
 window = Tk()
 window.title("Password Manager")
