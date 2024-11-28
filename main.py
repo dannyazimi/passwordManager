@@ -57,7 +57,7 @@ def generate_password():
     password_text.insert(0,password)
     pyperclip.copy(password)
 
-def website_search():
+def find_password():
     search_var = website_text.get().title()
 
     with open("data.json", mode="r") as data_file:
@@ -85,7 +85,7 @@ website_text.grid(row=1,column=1, sticky=EW)
 website_text.focus()
 website_label = Label(text="Website: ")
 website_label.grid(row=1, column=0, sticky=EW)
-search_button = Button(text="Search",command=website_search,width=20)
+search_button = Button(text="Search",command=find_password,width=20)
 search_button.grid(row=1, column=2, sticky=EW)
 
 #email text box and label
