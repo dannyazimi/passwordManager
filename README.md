@@ -17,8 +17,8 @@ A simple password manager with a graphical user interface built using Python's '
 
 1. Clone the repository to your local machine,
 2. Navigate to the project directory,
-3. Install Python if you don't have it already
-4. Ensure the tkinter library is available. It is included by default in python's standard library
+3. Install Python if you don't have it already,
+4. Ensure the tkinter library is available. It is included by default in python's standard library.
 
 ## File Structure
 
