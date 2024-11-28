@@ -9,6 +9,7 @@ A simple password manager with a graphical user interface built using Python's '
 - User-friendly interface for adding new credentials.
 - Saves credentials to a local text file for easy access.
 - The email text entry is prefilled with "@gmail.com".
+- Search functionality based on the website name.
 
 ## Screenshots
 ![img.png](img.png)
@@ -29,7 +30,6 @@ A simple password manager with a graphical user interface built using Python's '
 ## Planned features
 
 * Encrypt the data.txt file for enhanced security
-* Add search functionality to find stored credentials
 
 ## Contributing
 
