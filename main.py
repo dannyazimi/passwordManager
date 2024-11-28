@@ -5,7 +5,7 @@ import pyperclip
 import json
 
 def save():
-    entered_website = website_text.get()
+    entered_website = website_text.get().title()
     entered_email= email_text.get()
     entered_password = password_text.get()
     new_data = {
@@ -57,6 +57,19 @@ def generate_password():
     password_text.insert(0,password)
     pyperclip.copy(password)
 
+def website_search():
+    search_var = website_text.get().title()
+
+    with open("data.json", mode="r") as data_file:
+        data = json.load(data_file)
+        search_result = data[search_var]
+        print(search_result)
+        searched_email = search_result["email"]
+        searched_password = search_result["password"]
+        messagebox.showinfo(search_var, f"Username: {searched_email}\n Password: {searched_password}\n\n"
+                                        f" Password copied to clipboard")
+        pyperclip.copy(searched_password)
+
 window = Tk()
 window.title("Password Manager")
 window.config(padx = 50, pady=50)
@@ -68,10 +81,12 @@ canvas.grid(row=0, column = 1)
 
 #Website text box and label
 website_text = Entry(width = 36)
-website_text.grid(row=1,column=1,columnspan = 2, sticky=EW)
+website_text.grid(row=1,column=1, sticky=EW)
 website_text.focus()
 website_label = Label(text="Website: ")
 website_label.grid(row=1, column=0, sticky=EW)
+search_button = Button(text="Search",command=website_search,width=20)
+search_button.grid(row=1, column=2, sticky=EW)
 
 #email text box and label
 email_text = Entry(width = 36)
